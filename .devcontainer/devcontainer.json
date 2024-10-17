@@ -1,0 +1,46 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Firedrake",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "fem",
+
+	"runArgs" : [
+		"--gpus=all",
+		"--shm-size=1g",
+		"--ulimit=memlock=-1",
+		"--ulimit=stack=67108864",
+		"--runtime=nvidia"
+	],
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.debugpy",
+				"ms-python.vscode-pylance",
+				"ms-toolsai.jupyter",
+				"mechatroner.rainbow-csv",
+				"KevinRose.vsc-python-indent"
+			],
+		"settings" : {
+			"python.pythonPath": "/home/firedrake/firedrake/bin/python",
+			"python.defaultInterpreterPath": "/home/firedrake/firedrake/bin/python"
+		}
+		}
+	},
+
+	"postCreateCommand": "pip install meshio pandamesh fenics-basix symfem torch==2.3.0 torch_geometric pyg-lib torch-scatter torch-sparse torch-cluster torch-spline-conv rioxarray rasterio xarray pandas plotly dash geopandas numba -f https://data.pyg.org/whl/torch-2.3.0+cpu.html && pip install -e aether/"
+	
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
